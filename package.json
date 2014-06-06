@@ -1,0 +1,38 @@
+{
+  "name": "simgr",
+  "description": "Image resizing proxy using S3 as a backend",
+  "version": "2.0.0",
+  "author": {
+    "name": "Jonathan Ong",
+    "email": "me@jongleberry.com",
+    "url": "http://jongleberry.com",
+    "twitter": "https://twitter.com/jongleberry"
+  },
+  "license": "MIT",
+  "repository": "mgmtio/simgr",
+  "dependencies": {
+    "mz": "0",
+    "co": "3",
+    "knox": "0",
+    "debug": "1",
+    "sharp": "0",
+    "mkdirp": "0",
+    "rimraf": "2",
+    "co-jobs": "1",
+    "type-is": "1",
+    "save-to": "1",
+    "mime-types": "1",
+    "hash-stream": "1"
+  },
+  "devDependencies": {
+    "co": "*",
+    "gm": "1",
+    "mocha": "*",
+    "should": "4",
+    "fluent-ffmpeg": "*"
+  },
+  "scripts": {
+    "test": "mocha --harmony-generators --require should --reporter spec --bail --timeout 2m test/index.js"
+  },
+  "main": "lib"
+}
