@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": "mgmtio/simgr",
   "dependencies": {
-    "mz": "0",
+    "mz": "1",
     "co": "3",
     "knox": "0",
     "debug": "1",
