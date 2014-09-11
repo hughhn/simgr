@@ -4,7 +4,19 @@ language: node_js
 script: npm run test-travis
 after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
 before_install:
-- sudo apt-get install imagemagick libvips-dev
+- sudo apt-get install automake build-essential git gobject-introspection gtk-doc-tools libglib2.0-dev libjpeg-turbo8-dev libpng12-dev libwebp-dev libtiff5-dev libexif-dev libxml2-dev swig libmagickwand-dev
+- git clone https://github.com/jcupitt/libvips.git
+- cd libvips
+- git checkout 7.38
+- ./bootstrap.sh
+- ./configure --enable-debug=no --enable-cxx=yes --without-python --without-orc --without-fftw
+- make
+- sudo make install
+- sudo ldconfig
+- sudo add-apt-repository ppa:lyrasis/precise-backports
+- sudo apt-get update
+- sudo apt-get install imagemagick libtiff4-dev
+- cd ..
 env:
   global:
   - secure: ZzIygp7Py7jorDzPWQ89dBu0ueBglDy76Z1EIh+M3SgyOY0hdyw3qgyji+laXO/MS6DeUNxrg8VzVxVUC60TINTDRy6REcnZXoeT/s3b5cTCc/9cpbC0gRNxufAQ/CTe1TL4rlmJRT+qyIyfNiqUhvAVhpsDeYlx+H15QNCJHXo=
