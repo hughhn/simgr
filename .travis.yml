@@ -4,7 +4,7 @@ language: node_js
 script: npm run test-travis
 after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
 before_install:
-- sudo apt-get install imagemagick vips
+- sudo apt-get install imagemagick libvips-dev
 env:
   global:
   - secure: ZzIygp7Py7jorDzPWQ89dBu0ueBglDy76Z1EIh+M3SgyOY0hdyw3qgyji+laXO/MS6DeUNxrg8VzVxVUC60TINTDRy6REcnZXoeT/s3b5cTCc/9cpbC0gRNxufAQ/CTe1TL4rlmJRT+qyIyfNiqUhvAVhpsDeYlx+H15QNCJHXo=
