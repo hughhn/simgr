@@ -14,25 +14,32 @@
     "mz": "1",
     "co": "3",
     "knox": "0",
-    "debug": "1",
+    "debug": "*",
     "sharp": "0",
     "mkdirp": "0",
     "rimraf": "2",
     "co-jobs": "1",
     "type-is": "1",
     "save-to": "1",
-    "mime-types": "1",
+    "mime-types": "2",
     "hash-stream": "1"
   },
   "devDependencies": {
-    "co": "*",
+    "istanbul-harmony": "0",
     "gm": "1",
     "mocha": "*",
     "should": "4",
     "fluent-ffmpeg": "*"
   },
   "scripts": {
-    "test": "mocha --harmony-generators --require should --reporter spec --bail --timeout 2m test/index.js"
+    "test": "mocha --harmony-generators --require should --reporter spec --timeout 2m test/index.js",
+    "test-cov": "node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should --timeout 2m test/index.js",
+    "test-travis": "node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should --timeout 2m test/index.js"
   },
-  "main": "lib"
+  "main": "lib",
+  "files": ["lib"],
+  "keywords": [
+    "image",
+    "resize"
+  ]
 }
