@@ -13,7 +13,7 @@ before_install:
 - make
 - sudo make install
 - sudo ldconfig
-- sudo add-apt-repository ppa:lyrasis/precise-backports
+- sudo add-apt-repository -y ppa:lyrasis/precise-backports
 - sudo apt-get update
 - sudo apt-get install imagemagick libtiff4-dev
 - cd ..
