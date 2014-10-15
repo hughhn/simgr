@@ -14,6 +14,7 @@
     "co": "3",
     "co-jobs": "1",
     "debug": "*",
+    "fs-cp": "1",
     "hash-stream": "1",
     "http-errors": "1",
     "knox": "0",
@@ -21,7 +22,6 @@
     "mkdirp": "0",
     "mz": "1",
     "rimraf": "2",
-    "save-to": "1",
     "sharp": "0",
     "type-is": "1"
   },

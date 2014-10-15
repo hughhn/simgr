@@ -7,7 +7,7 @@ describe('GIF Single Frame sunflower.gif', function () {
 
   describe('PUT', function () {
     it('should save', co(function* () {
-      yield* simgr.save(fs.createReadStream(image), metadata)
+      yield simgr.save(fs.createReadStream(image), metadata)
       metadata.path.should.be.ok
       metadata.path.should.not.equal(image)
       yield fs.stat(metadata.path)
