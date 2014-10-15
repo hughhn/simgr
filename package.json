@@ -1,7 +1,7 @@
 {
   "name": "simgr",
   "description": "Image resizing proxy using S3 as a backend",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": {
     "name": "Jonathan Ong",
     "email": "me@jongleberry.com",
@@ -37,7 +37,9 @@
     "test-travis": "node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should --timeout 2m test/index.js"
   },
   "main": "lib",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "keywords": [
     "image",
     "resize"
