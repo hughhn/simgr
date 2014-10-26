@@ -24,6 +24,10 @@ describe('PNG taylor-swift.png', function () {
       metadata.colorspace.should.be.ok
       metadata.width.should.be.ok
       metadata.height.should.be.ok
+      metadata.signatures.forEach(function (signature) {
+        assert(Buffer.isBuffer(signature))
+        assert.equal(signature.length, 32)
+      })
     })
 
     it('should upload', co(function* () {

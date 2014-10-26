@@ -21,6 +21,10 @@ describe('GIF Single Frame sunflower.gif', function () {
       metadata.originalFormat.should.equal('gif')
       metadata.format.should.equal('png')
       metadata.type.should.equal('image/png')
+      metadata.signatures.forEach(function (signature) {
+        assert(Buffer.isBuffer(signature))
+        assert.equal(signature.length, 32)
+      })
     })
 
     it('should upload', co(function* () {

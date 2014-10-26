@@ -30,8 +30,12 @@ describe('GIF crazy-laugh.gif', function () {
       var stdout = yield execFile('identify', ['-format', '%# ', image])
       var signature = stdout.toString('utf8').trim().split(/\s+/).shift()
 
-      metadata.signatures[0].should.not.equal(signature)
+      metadata.signatures[0].toString('hex').should.not.equal(signature)
       metadata.signatures.length.should.equal(1)
+      metadata.signatures.forEach(function (signature) {
+        assert(Buffer.isBuffer(signature))
+        assert.equal(signature.length, 32)
+      })
     }))
 
     it('should upload', co(function* () {

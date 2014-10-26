@@ -26,6 +26,10 @@ describe('JPEG selena.webp', function () {
       metadata.width.should.be.ok
       metadata.height.should.be.ok
       metadata.signatures.length.should.equal(2)
+      metadata.signatures.forEach(function (signature) {
+        assert(Buffer.isBuffer(signature))
+        assert.equal(signature.length, 32)
+      })
     })
 
     it('should upload', co(function* () {

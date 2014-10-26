@@ -15,6 +15,10 @@ describe('JPEG Large natalie.jpg', function () {
 
     it('should identify', co(function* () {
       yield* simgr.identify(metadata)
+      metadata.signatures.forEach(function (signature) {
+        assert(Buffer.isBuffer(signature))
+        assert.equal(signature.length, 32)
+      })
     }))
 
     it('should upload', co(function* () {
