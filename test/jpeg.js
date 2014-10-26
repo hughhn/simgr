@@ -29,6 +29,10 @@ describe('JPEG originalSideways.jpg', function () {
         assert(Buffer.isBuffer(signature))
         assert.equal(signature.length, 32)
       })
+      metadata.phashes.forEach(function (phash) {
+        assert(Buffer.isBuffer(phash))
+        assert.equal(phash.length, 8)
+      })
     })
 
     it('should have dimensions in the proper order', function () {
@@ -55,6 +59,14 @@ describe('JPEG originalSideways.jpg', function () {
 
     it('should create the signatures', function () {
       options.signatures.length.should.equal(2)
+    })
+
+    it('should create phashes', function () {
+      assert.equal(options.phashes.length, 1)
+      options.phashes.forEach(function (phash) {
+        assert(Buffer.isBuffer(phash))
+        assert.equal(phash.length, 8)
+      })
     })
 
     it('should have correct headers', function () {
@@ -215,6 +227,14 @@ describe('JPEG originalSideways.jpg', function () {
 
     it('should create the signatures', function () {
       options.signatures.length.should.equal(2)
+    })
+
+    it('should create phashes', function () {
+      assert.equal(options.phashes.length, 1)
+      options.phashes.forEach(function (phash) {
+        assert(Buffer.isBuffer(phash))
+        assert.equal(phash.length, 8)
+      })
     })
 
     it('should have correct headers', function () {

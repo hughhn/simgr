@@ -28,6 +28,10 @@ describe('PNG taylor-swift.png', function () {
         assert(Buffer.isBuffer(signature))
         assert.equal(signature.length, 32)
       })
+      metadata.phashes.forEach(function (phash) {
+        assert(Buffer.isBuffer(phash))
+        assert.equal(phash.length, 8)
+      })
     })
 
     it('should upload', co(function* () {

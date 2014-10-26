@@ -15,6 +15,10 @@ describe('GIF crazy-laugh.gif', function () {
 
     it('should identify', co(function* () {
       yield* simgr.identify(metadata)
+      metadata.phashes.forEach(function (phash) {
+        assert(Buffer.isBuffer(phash))
+        assert.equal(phash.length, 8)
+      })
     }))
 
     it('should have the correct frames', function () {

@@ -21,6 +21,7 @@
     "mime-types": "2",
     "mkdirp": "0",
     "mz": "1",
+    "phash-image": "2",
     "rimraf": "2",
     "sharp": "0",
     "type-is": "1"
