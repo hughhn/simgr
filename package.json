@@ -34,9 +34,9 @@
     "fluent-ffmpeg": "*"
   },
   "scripts": {
-    "test": "mocha --harmony-generators --require should --reporter spec --timeout 2m test/index.js --bail",
-    "test-cov": "node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should --timeout 2m test/index.js",
-    "test-travis": "node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should --timeout 2m test/index.js"
+    "test": "mocha --harmony-generators --reporter spec test/index.js --bail",
+    "test-cov": "node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- test/index.js",
+    "test-travis": "node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- test/index.js"
   },
   "main": "lib",
   "files": [
