@@ -11,6 +11,7 @@ before_install:
   - "sudo apt-get install cimg-dev libphash0-dev libmagickcore-dev"
   - curl -s https://raw.githubusercontent.com/lovell/sharp/master/preinstall.sh | sudo bash -
   - curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz | sudo tar -C /usr/local/bin/ -xvz
+  - mkdir ImageMagick
   - curl http://www.imagemagick.org/download/ImageMagick.tar.gz | tar -C ImageMagick --strip-components=1 -xvz
   - cd ImageMagick
   - ./configure --with-webp=yes
