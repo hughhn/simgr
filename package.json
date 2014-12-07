@@ -23,14 +23,14 @@
   "devDependencies": {
     "bluebird": "2",
     "fluent-ffmpeg": "*",
-    "istanbul-harmony": "0",
+    "istanbul": "0",
     "mocha": "2",
     "rimraf": "2"
   },
   "scripts": {
-    "test": "mocha --harmony-generators --reporter spec test/index.js --bail",
-    "test-cov": "node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- test/index.js",
-    "test-travis": "node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- test/index.js"
+    "test": "mocha --reporter spec test/index.js",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot test/index.js",
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter dot test/index.js"
   },
   "main": "lib",
   "files": [
