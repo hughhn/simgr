@@ -1,15 +1,11 @@
 node_js:
 - '0.10'
 - '0.11'
-matrix:
-  allow_failures:
-    - node_js: "0.11"
-  fast_finish: true
 language: node_js
 script: npm run test-travis
 before_install:
   - curl -s https://raw.githubusercontent.com/lovell/sharp/master/preinstall.sh | sudo bash -
-  - curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz | tar -C /usr/local/bin/ -xvz
+  - curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz | sudo tar -C /usr/local/bin/ -xvz
 after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
 env:
   global:
