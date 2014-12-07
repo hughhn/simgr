@@ -11,27 +11,26 @@
   "license": "MIT",
   "repository": "mgmtio/simgr",
   "dependencies": {
-    "co": "3",
-    "co-jobs": "1",
     "debug": "*",
     "fs-cp": "1",
+    "fs-reap": "1",
     "hash-stream": "1",
     "http-errors": "1",
     "knox": "0",
     "mime-types": "2",
     "mkdirp": "0",
     "mz": "1",
+    "native-or-bluebird": "1",
     "phash-image": "2",
-    "rimraf": "2",
     "sharp": "0",
     "type-is": "1"
   },
   "devDependencies": {
+    "bluebird": "2",
+    "fluent-ffmpeg": "*",
     "istanbul-harmony": "0",
-    "gm": "1",
-    "mocha": "*",
-    "should": "4",
-    "fluent-ffmpeg": "*"
+    "mocha": "2",
+    "rimraf": "2"
   },
   "scripts": {
     "test": "mocha --harmony-generators --reporter spec test/index.js --bail",

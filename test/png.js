@@ -1,65 +1,57 @@
 
+var hash = require('hash-stream')
+var assert = require('assert')
+var fs = require('fs')
+
+var simgr = require('..')
+
 describe('PNG taylor-swift.png', function () {
-  var image = Image('taylor-swift.png')
-  var metadata = {
-    id: random()
-  }
+  var filename = fixture('taylor-swift.png')
+  var _id
+  var id
+
+  before(function () {
+    return hash(filename, 'sha256').then(function (buf) {
+      _id = buf
+      id = _id.toString('hex')
+    })
+  })
 
   describe('PUT', function () {
-    it('should save', co(function* () {
-      yield simgr.save(fs.createReadStream(image), metadata)
-      metadata.path.should.be.ok
-      metadata.path.should.not.equal(image)
-      yield fs.stat(metadata.path)
-    }))
-
-    it('should identify', co(function* () {
-      yield* simgr.identify(metadata)
-    }))
-
-    it('should have the correct metadata', function () {
-      metadata.originalFormat.should.equal('png')
-      metadata.format.should.equal('png')
-      metadata.length.should.be.ok
-      metadata.colorspace.should.be.ok
-      metadata.width.should.be.ok
-      metadata.height.should.be.ok
-      metadata.signatures.forEach(function (signature) {
-        assert(Buffer.isBuffer(signature))
-        assert.equal(signature.length, 32)
-      })
-      metadata.phashes.forEach(function (phash) {
-        assert(Buffer.isBuffer(phash))
-        assert.equal(phash.length, 8)
+    it('should identify', function () {
+      return simgr.identify(filename).then(function (_metadata) {
+        metadata = _metadata
+        metadata._id = _id
+        metadata.id = id
+        assert.equal(metadata.format, 'png')
+        assert(typeof metadata.length === 'number')
+        assert(typeof metadata.quality === 'number')
+        assert(metadata.colorspace === 'sRGB')
+        assert(typeof metadata.width === 'number')
+        assert(typeof metadata.height === 'number')
+        assert(metadata.orientation === 1)
+        assert(metadata.frames === 1)
+        assert(metadata.type === 'image/png')
       })
     })
 
-    it('should upload', co(function* () {
-      yield* simgr.upload(metadata)
-    }))
+    it('should upload', function () {
+      return simgr.s3.upload(id, filename)
+    })
   })
 
-  describe('GET o.jpeg', function () {
-    it('should create the variant', createVariant(metadata, 'o', 'jpeg'))
-  })
+  createOriginal('png')
 
-  describe('GET a.jpeg', function () {
-    it('should create the variant', createVariant(metadata, 'a', 'jpeg'))
-  })
+  createImageVariant('o', 'jpeg')
+  createImageVariant('a', 'jpeg')
+  createImageVariant('o', 'webp')
+  createImageVariant('a', 'webp')
+  createImageVariant('a', 'png')
 
-  describe('GET o.png', function () {
-    it('should create the variant', createVariant(metadata, 'o', 'png'))
-  })
-
-  describe('GET a.png', function () {
-    it('should create the variant', createVariant(metadata, 'a', 'png'))
-  })
-
-  describe('GET o.webp', function () {
-    it('should create the variant', createVariant(metadata, 'o', 'webp'))
-  })
-
-  describe('GET a.webp', function () {
-    it('should create the variant', createVariant(metadata, 'a', 'webp'))
-  })
+  convertAllThrows([
+    ['o', 'webm'],
+    ['a', 'webm'],
+    ['o', 'mp4'],
+    ['a', 'mp4'],
+  ])
 })

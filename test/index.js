@@ -1,58 +1,108 @@
 
-co = require('co')
-fs = require('mz/fs')
-path = require('path')
-assert = require('assert')
-ffprobe = require('fluent-ffmpeg').ffprobe
-execFile = require('mz/child_process').execFile
+var fs = require('fs')
+var path = require('path')
+var assert = require('assert')
+var rimraf = require('rimraf')
+var mkdirp = require('mkdirp')
+var sharp = require('sharp')
 
-gm = require('gm').subClass({
-  imageMagick: true
-})
+var simgr = require('..')
+rimraf.sync(simgr.folder.folder)
+mkdirp.sync(simgr.folder.folder)
 
-simgr = require('..')
-
-Image = function (name) {
-  return path.join(__dirname, 'images', name)
+fixture = function (name) {
+  return path.join(__dirname, 'fixtures', name)
 }
 
-random = function () {
-  return Math.random().toString(36).slice(2)
-}
-
-variantThrows = function (metadata, slug, format) {
-  return co(function* () {
-    try {
-      yield* simgr.variant(metadata, {
-        slug: slug,
-        format: format,
-      })
-      throw new Error('lol')
-    } catch (err) {
-      err.message.should.not.equal('lol')
-    }
-  })
-}
-
-createVariant = function (metadata, slug, format) {
-  return co(function* () {
-    var res = yield* simgr.variant(metadata, {
+convertThrows = function (slug, format) {
+  return function () {
+    return simgr.convert(metadata, {
       slug: slug,
-      format: format,
+      format: format
+    }).then(function () {
+      throw new Error('boom')
+    }).catch(function (err) {
+      assert(err.message !== 'boom')
     })
-    res.resume()
-    res.statusCode.should.equal(200)
+  }
+}
+
+convertAllThrows = function (pairs) {
+  pairs.forEach(function (x) {
+    var slug = x[0]
+    var format = x[1]
+    describe('GET ' + slug + '.' + format, function () {
+      it('should throw', convertThrows(slug, format))
+    })
   })
 }
 
-require('./http')
+createOriginal = function (format) {
+  describe('GET o.' + format, function () {
+    var options = {
+      slug: 'o',
+      format: format
+    }
+
+    it('should return the original', function () {
+      return simgr.convert(metadata, options).then(function (out) {
+        assert(out.filename)
+        assert(!out.phashes.length)
+        assert(!out.signatures.length)
+        fs.statSync(out.filename)
+      })
+    })
+  })
+}
+
+createImageVariant = function (slug, format) {
+  describe('GET ' + slug + '.' + format, function () {
+    var options = {
+      slug: slug,
+      format: format
+    }
+    var out
+
+    it('should create a variant', function () {
+      return simgr.convert(metadata, options).then(function (_out) {
+        out = _out
+        assert(out.filename)
+        assert(out.phashes.length === 1)
+        assert(out.signatures.length === 2)
+        out.phashes.forEach(function (buf) {
+          assert(Buffer.isBuffer(buf))
+          assert(buf.length === 8)
+        })
+        out.signatures.forEach(function (buf) {
+          assert(Buffer.isBuffer(buf))
+          assert(buf.length === 32)
+        })
+        fs.statSync(out.filename)
+      })
+    })
+
+    it('should have the right properties', function () {
+      return sharp(out.filename).metadata().then(function (data) {
+        assert(data.format === format)
+        if (slug === 'o') {
+          assert(data.width === metadata.width)
+          assert(data.height === metadata.height)
+        } else {
+          var variant = simgr.constants.variant[slug]
+          assert(data.width <= variant.size.width)
+          assert(data.height <= variant.size.height)
+        }
+      })
+    })
+  })
+}
+
+require('./assert')
 require('./non-image')
+
 require('./jpeg')
 require('./gif-single-frame')
 require('./png')
 require('./tiff')
 require('./webp')
-
-// large shit
 require('./gif')
-require('./jpeg-large')
