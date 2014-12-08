@@ -66,6 +66,7 @@ createImageVariant = function (slug, format) {
       return simgr.convert(metadata, options).then(function (_out) {
         out = _out
         assert(out.filename)
+        assert(~out.filename.indexOf(slug + '.' + format))
         assert(out.hash)
         assert(Buffer.isBuffer(out.hash))
         assert(out.hash.length === 32)
@@ -84,6 +85,16 @@ createImageVariant = function (slug, format) {
           assert(data.width <= variant.size.width)
           assert(data.height <= variant.size.height)
         }
+      })
+    })
+
+    it('should get a signature', function () {
+      return simgr.identify.signature(out.filename).then(function (signatures) {
+        assert(signatures.length === 1)
+        signatures.forEach(function (signature) {
+          assert(Buffer.isBuffer(signature))
+          assert(signature.length === 32)
+        })
       })
     })
   })

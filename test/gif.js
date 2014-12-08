@@ -71,6 +71,7 @@ function createVideoVariant(format) {
       return simgr.convert(metadata, options).then(function (_out) {
         out = _out
         assert(out.filename)
+        assert(~out.filename.indexOf('o.' + format))
         assert(out.hash)
         assert(Buffer.isBuffer(out.hash))
         assert(out.hash.length === 32)
