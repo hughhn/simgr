@@ -71,16 +71,9 @@ function createVideoVariant(format) {
       return simgr.convert(metadata, options).then(function (_out) {
         out = _out
         assert(out.filename)
-        assert(out.phashes.length === 0)
-        assert(out.signatures.length === 1)
-        out.phashes.forEach(function (buf) {
-          assert(Buffer.isBuffer(buf))
-          assert(buf.length === 8)
-        })
-        out.signatures.forEach(function (buf) {
-          assert(Buffer.isBuffer(buf))
-          assert(buf.length === 32)
-        })
+        assert(out.hash)
+        assert(Buffer.isBuffer(out.hash))
+        assert(out.hash.length === 32)
         fs.statSync(out.filename)
       })
     })

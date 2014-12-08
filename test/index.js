@@ -7,8 +7,8 @@ var mkdirp = require('mkdirp')
 var sharp = require('sharp')
 
 var simgr = require('..')
-rimraf.sync(simgr.folder.folder)
-mkdirp.sync(simgr.folder.folder)
+rimraf.sync(simgr.folder)
+mkdirp.sync(simgr.folder)
 
 fixture = function (name) {
   return path.join(__dirname, 'fixtures', name)
@@ -47,8 +47,7 @@ createOriginal = function (format) {
     it('should return the original', function () {
       return simgr.convert(metadata, options).then(function (out) {
         assert(out.filename)
-        assert(!out.phashes.length)
-        assert(!out.signatures.length)
+        assert(!out.hash)
         fs.statSync(out.filename)
       })
     })
@@ -67,16 +66,9 @@ createImageVariant = function (slug, format) {
       return simgr.convert(metadata, options).then(function (_out) {
         out = _out
         assert(out.filename)
-        assert(out.phashes.length === 1)
-        assert(out.signatures.length === 2)
-        out.phashes.forEach(function (buf) {
-          assert(Buffer.isBuffer(buf))
-          assert(buf.length === 8)
-        })
-        out.signatures.forEach(function (buf) {
-          assert(Buffer.isBuffer(buf))
-          assert(buf.length === 32)
-        })
+        assert(out.hash)
+        assert(Buffer.isBuffer(out.hash))
+        assert(out.hash.length === 32)
         fs.statSync(out.filename)
       })
     })
