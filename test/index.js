@@ -2,13 +2,10 @@
 var fs = require('fs')
 var path = require('path')
 var assert = require('assert')
-var rimraf = require('rimraf')
-var mkdirp = require('mkdirp')
 var sharp = require('sharp')
 
 var simgr = require('..')
-rimraf.sync(simgr.folder)
-mkdirp.sync(simgr.folder)
+simgr.cache.clear()
 
 fixture = function (name) {
   return path.join(__dirname, 'fixtures', name)
