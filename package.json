@@ -14,12 +14,10 @@
     "mime-types": "2",
     "mkdirp": "0",
     "mz": "1",
-    "native-or-bluebird": "1",
     "sharp": "0",
     "type-is": "1"
   },
   "devDependencies": {
-    "bluebird": "2",
     "fluent-ffmpeg": "*",
     "istanbul": "0",
     "mocha": "2",
@@ -37,5 +35,8 @@
   "keywords": [
     "image",
     "resize"
-  ]
+  ],
+  "engines": {
+    "iojs": ">= 1"
+  }
 }
