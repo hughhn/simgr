@@ -3,9 +3,17 @@ node_js:
 language: node_js
 script: npm run test-travis
 before_install:
-  - sudo apt-get install cimg-dev libphash0-dev libmagickcore-dev imagemagick
+  - sudo apt-get install cimg-dev libphash0-dev libmagickcore-dev libwebp libjpeg-dev libpng-dev libtiff-dev libgif-dev
   - curl -s https://raw.githubusercontent.com/lovell/sharp/master/preinstall.sh | sudo bash -
   - curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz | sudo tar -C /usr/local/bin/ -xvz
+  - mkdir ImageMagick
+  - curl http://www.imagemagick.org/download/ImageMagick.tar.gz | tar -C ImageMagick --strip-components=1 -xvz
+  - cd ImageMagick
+  - ./configure --with-webp=yes
+  - make
+  - sudo make install
+  - sudo ldconfig /usr/local/lib
+  - cd ..
 after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
 env:
   global:
