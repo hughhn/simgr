@@ -14,7 +14,7 @@ before_install:
   - sudo make install
   - sudo ldconfig /usr/local/lib
   - cd ..
-after_script: npm install coveralls@2.10.0 && cat ./coverage/lcov.info | coveralls
+after_script: npm install coveralls@2 && cat ./coverage/lcov.info | coveralls
 env:
   global:
   - secure: ZzIygp7Py7jorDzPWQ89dBu0ueBglDy76Z1EIh+M3SgyOY0hdyw3qgyji+laXO/MS6DeUNxrg8VzVxVUC60TINTDRy6REcnZXoeT/s3b5cTCc/9cpbC0gRNxufAQ/CTe1TL4rlmJRT+qyIyfNiqUhvAVhpsDeYlx+H15QNCJHXo=
