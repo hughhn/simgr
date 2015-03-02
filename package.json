@@ -7,7 +7,7 @@
   "repository": "mgmtio/simgr",
   "dependencies": {
     "debug": "*",
-    "fs-lru-cache": "^1.0.2",
+    "fs-lru-cache": "2",
     "hash-stream": "1",
     "http-errors": "1",
     "knox": "0",

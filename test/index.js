@@ -5,7 +5,10 @@ var assert = require('assert')
 var sharp = require('sharp')
 
 var simgr = require('..')
-simgr.cache.clear()
+
+before(function () {
+  return simgr.cache.clear()
+})
 
 fixture = function (name) {
   return path.join(__dirname, 'fixtures', name)
