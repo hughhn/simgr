@@ -22,10 +22,10 @@
     "istanbul": "0",
     "mocha": "2",
     "rimraf": "2",
-    "standardberry": "^2.3.0"
+    "standardberry": "*"
   },
   "scripts": {
-    "lint": "standardberry lib/**/*.js",
+    "lint": "standardberry lib",
     "test": "mocha test/index.js",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot test/index.js",
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter dot test/index.js"
