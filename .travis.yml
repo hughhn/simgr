@@ -3,9 +3,10 @@ node_js:
 language: node_js
 script: npm run test-travis
 before_install:
+  - sudo apt-get -y update
   - sudo apt-get install cimg-dev libphash0-dev libmagickcore-dev libwebp-dev libjpeg-dev libpng-dev libtiff-dev libgif-dev
   - curl -s https://raw.githubusercontent.com/lovell/sharp/master/preinstall.sh | sudo bash -
-  - curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz | sudo tar -C /usr/local/bin/ -xvz
+  - curl http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz | sudo tar -C /usr/local/bin/ -xJ --strip-components=1
   - mkdir ImageMagick
   - curl http://www.imagemagick.org/download/ImageMagick.tar.gz | tar -C ImageMagick --strip-components=1 -xvz
   - cd ImageMagick
