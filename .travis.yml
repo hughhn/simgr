@@ -1,23 +1,27 @@
 node_js:
-- 'iojs'
+- iojs
 language: node_js
 script: npm run test-travis
 before_install:
-  - sudo apt-get -y update
-  - sudo apt-get install cimg-dev libphash0-dev libmagickcore-dev libwebp-dev libjpeg-dev libpng-dev libtiff-dev libgif-dev
-  - curl -s https://raw.githubusercontent.com/lovell/sharp/master/preinstall.sh | sudo bash -
-  - curl http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz | sudo tar -C /usr/local/bin/ -xJ --strip-components=1
-  - mkdir ImageMagick
-  - curl http://www.imagemagick.org/download/ImageMagick.tar.gz | tar -C ImageMagick --strip-components=1 -xvz
-  - cd ImageMagick
-  - ./configure --with-webp=yes
-  - make
-  - sudo make install
-  - sudo ldconfig /usr/local/lib
-  - cd ..
+- sudo apt-get -y update
+- sudo apt-get install cimg-dev libphash0-dev libmagickcore-dev libwebp-dev libjpeg-dev
+  libpng-dev libtiff-dev libgif-dev
+- curl -s https://raw.githubusercontent.com/lovell/sharp/master/preinstall.sh | sudo
+  bash -
+- curl http://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz
+  | sudo tar -C /usr/local/bin/ -xJ --strip-components=1
+- mkdir ImageMagick
+- curl http://www.imagemagick.org/download/ImageMagick.tar.gz | tar -C ImageMagick
+  --strip-components=1 -xvz
+- cd ImageMagick
+- "./configure --with-webp=yes"
+- make
+- sudo make install
+- sudo ldconfig /usr/local/lib
+- cd ..
 after_script: npm install coveralls@2 && cat ./coverage/lcov.info | coveralls
 env:
   global:
-  - secure: ZzIygp7Py7jorDzPWQ89dBu0ueBglDy76Z1EIh+M3SgyOY0hdyw3qgyji+laXO/MS6DeUNxrg8VzVxVUC60TINTDRy6REcnZXoeT/s3b5cTCc/9cpbC0gRNxufAQ/CTe1TL4rlmJRT+qyIyfNiqUhvAVhpsDeYlx+H15QNCJHXo=
-  - secure: HYjjeWS1JYBI6VIGsYPeegBf7oS/nJtmdQcoO7cYbH7gK0mdJOyvLVXBBCXbJjojQubvcBE9JQE5DRSRChUI8mYrU1EpJOKW9ErA9rN5fmoGmoydHvjZk9a/5moss6k6xFRn4D9kcRv8Fi34KPy8Hh1db2KBKuolz5lMcRf6Jpc=
-  - secure: BTxJgqOSkXXPBakAd8SekOFMvvw+IdN4l4zyRL3gcRT9/ZOakes3kCWDmbHW5iwSssf9f6Y9Vx7vFR+6cgcWIndQdYyTzlAnYi0fyNH8+vYmNM+srmClAcM4bmdfDPq2nY+JOiMzyuzSlUk31O67o0O/zSGLrLKGDgrP2+FO3yY=
+  - secure: BQXOJg/uKRjgMovpTWgrIMijdJ5qsGlm+pZaOPocieqMLurCoFIYgkOF9dVgdKHAxcsCjG7ZzlOFL+CTE+3CrgIUkvAEjNgStt4zdOG91jE4pEQ5DJe1gugPoBgLM5y6jRjBU/Hcq1FtxQnwYAgDPXpJImCMpLufL71UyArWrBs=
+  - secure: ANCnNxNzkTvX+u8Cxao3zsLwSwut0/WED7VAt4h6tjZ/3uVdP5KFv+s7jTNFepkqtEssStaXFJ4RyfL9LVJvvIf+U0VSkr4Hw60e6bx1/7WVTepA5imvy3OC2KN8BCmY++yzG4gjULj/BfqemmUPzFz0PhEnFpdSvmaztv5EjYg=
+  - secure: d0TluIIRF7lw1U9Qz2rmJ+S8X9UBm6Khnf1KOeVuLCSvjcPtFbU8z4Ak0GYK9IJp5fF21xk7yg/HcXeX5vnOe8t3jaK9tPaCRBKIngZllwxJ7ZymozGPjk+AzAipAq1f68qqP9ifLNDC1Sx/+jWdlR2j7/LeYzdtBEDxFZbv2LU=
