@@ -1,0 +1,12 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t simgr .
+
+test:
+  override:
+    - docker run -e "AWS_ACCESS_KEY_ID:$AWS_ACCESS_KEY_ID" -e "AWS_SECRET_ACCESS_KEY:$AWS_SECRET_ACCESS_KEY" -e "SIMGR_BUCKET:$SIMGR_BUCKET" fuisz-tracker npm run test-cov
