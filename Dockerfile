@@ -1,4 +1,4 @@
-FROM jongleberry/images
+FROM jongleberry/images:latest
 
 ADD . /simgr/
 WORKDIR /simgr/
