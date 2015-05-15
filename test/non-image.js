@@ -8,7 +8,7 @@ describe('non-images', function () {
     return simgr.identify(__filename).then(function () {
       throw new Error('boom')
     }).catch(function (err) {
-      assert(err.status === 415)
+      assert(err.status === 415, err.status + ': ' + err.message)
     })
   })
 })
