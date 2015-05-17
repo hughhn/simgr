@@ -1,16 +1,16 @@
 'use strict'
 
-const debug = require('debug')('simgr:errors')
-const error = require('http-errors')
+var debug = require('debug')('simgr:errors')
+var error = require('http-errors')
 
 module.exports = errors
 
 function errors(key) {
-  let opts = errors[key]
+  var opts = errors[key]
   /* istanbul ignore if */
   if (!opts) return debug('no error by code %s', key)
 
-  let err = error(opts.status || 400, opts.message)
+  var err = error(opts.status || 400, opts.message)
   err.key = err.code = key
   return err
 }
