@@ -19,6 +19,7 @@
     "type-is": "1"
   },
   "devDependencies": {
+    "eslint": "^0.21.1",
     "fluent-ffmpeg": "*",
     "istanbul": "0",
     "mocha": "2",
@@ -26,7 +27,7 @@
     "standardberry": "*"
   },
   "scripts": {
-    "lint": "standardberry lib",
+    "lint": "eslint publish-lambda.js lib lambda/*.js",
     "test": "mocha test/index.js",
     "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot test/index.js",
     "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter dot test/index.js"
