@@ -15,6 +15,7 @@
     "mkdirp": "0",
     "mz": "1",
     "sharp": "0",
+    "simgr-lambda": "file:lambda",
     "type-is": "1"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
   },
   "main": "lib",
   "files": [
+    "lambda",
     "lib"
   ],
   "keywords": [
