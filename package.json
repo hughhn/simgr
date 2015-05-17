@@ -36,7 +36,10 @@
   ],
   "keywords": [
     "image",
-    "resize"
+    "resize",
+    "libvips",
+    "vips",
+    "imagemagick"
   ],
   "engines": {
     "iojs": ">= 1"
