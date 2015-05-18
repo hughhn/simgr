@@ -44,6 +44,7 @@ describe('JPEG originalSideways.jpg', function () {
   createOriginal('jpeg')
 
   createImageVariant('a', 'jpeg')
+  createImageVariant('l', 'jpeg', false)
   createImageVariant('o', 'webp')
   createImageVariant('a', 'webp')
 

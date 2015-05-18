@@ -54,7 +54,7 @@ createOriginal = function (format) {
   })
 }
 
-createImageVariant = function (slug, format) {
+createImageVariant = function (slug, format, resized) {
   describe('GET ' + slug + '.' + format, function () {
     var options = {
       slug: slug,
@@ -66,10 +66,12 @@ createImageVariant = function (slug, format) {
       return simgr.convert(metadata, options).then(function (_out) {
         out = _out
         assert(out.filename)
-        assert(~out.filename.indexOf(slug + '.' + format))
-        assert(out.hash)
-        assert(Buffer.isBuffer(out.hash))
-        assert(out.hash.length === 32)
+        if (resized !== false) {
+          assert(~out.filename.indexOf(slug + '.' + format))
+          assert(out.hash)
+          assert(Buffer.isBuffer(out.hash))
+          assert(out.hash.length === 32)
+        }
         fs.statSync(out.filename)
       })
     })
