@@ -13,7 +13,7 @@
     "knox": "0",
     "mime-types": "2",
     "mkdirp": "0",
-    "mz": "1",
+    "mz": "^2.0.0",
     "sharp": "0",
     "type-is": "1"
   },
